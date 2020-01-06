@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - node
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a41732f3df70b2326f55d240cb5ace01abad4bedb91bc68ff6a36dea258bfb53
+    - SECRET_HMAC_KEY=secret
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - make lint
+  - make test-coverage
+  - make build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+after_success: 
+  - make deploy
