@@ -84,10 +84,12 @@ const handleSubmit = t => (e) => {
 };
 
 export default (t) => {
-  const i18nElements = document.querySelectorAll('*[data-i18n]');
-  [...i18nElements].forEach((el) => {
-    el.textContent = t(el.dataset.i18n);
-  });
+  if (t) {
+    const i18nElements = document.querySelectorAll('*[data-i18n]');
+    [...i18nElements].forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+  }
 
   const rssForm = document.getElementById('rssForm');
   const rssInput = rssForm.querySelector('input');
