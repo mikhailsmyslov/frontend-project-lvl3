@@ -1,0 +1,12 @@
+{
+    "add": "Add",
+    "channels": "Channels",
+    "news": "News",
+    "appTitle": "RSS loader",
+    "appDescription": "Simple RSS loader written within frontend education course at",
+    "rssInputLabel": "Paste RSS url",
+    "formValid": "Looks good",
+    "invalidUrl": "Enter a valid URL",
+    "urlAlreadyExist": "URL already connected to agregator",
+    "loading": "Loading, please, wait..."
+}
