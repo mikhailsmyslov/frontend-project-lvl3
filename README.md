@@ -10,7 +10,7 @@ ______________________
 My third frontend project on [Hexlet](https://ru.hexlet.io)  
 
 ### Description
-To be added later
+Simple RSS agregator.
 
 ### Live Demo
 [ms-rss-loader.surge.sh](http://ms-rss-loader.surge.sh/)
