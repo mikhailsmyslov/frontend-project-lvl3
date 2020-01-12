@@ -11,7 +11,7 @@ import buildChannelLi from './components/buildChannelLi';
 const handleInput = (state, t) => ({ target }) => {
   const { value } = target;
   const urls = state.channels.map(({ url }) => url);
-  state.input = value.trim().toLowerCase();
+  state.input = value;
   state.errMsgs = [];
   switch (true) {
     case !value:
@@ -148,6 +148,6 @@ export default (translate, period = 5000) => {
   });
 
   watch(state, 'input', () => {
-    rssInput.value = state.input;
+    rssInput.value = state.input.toString().trim().toLowerCase();
   });
 };
