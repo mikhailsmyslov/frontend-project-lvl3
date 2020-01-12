@@ -1,7 +1,29 @@
-const proxy = 'https://cors-anywhere.herokuapp.com';
-export const proxifyUrl = url => `${proxy}/${url}`;
+import * as _normalizeUrl from 'normalize-url';
 
-export const parse = (data) => {
+export const normalizeUrl = url => _normalizeUrl(url, {
+  defaultProtocol: 'http:',
+  stripProtocol: true,
+  stripWWW: true,
+  removeTrailingSlash: true,
+  removeDirectoryIndex: true,
+  sortQueryParameters: true,
+});
+
+export const proxifyUrl = (url) => {
+  const proxy = 'https://cors-anywhere.herokuapp.com';
+  return `${proxy}/${normalizeUrl(url)}`;
+};
+
+export const compareUrls = (u1, u2) => normalizeUrl(u1) === normalizeUrl(u2);
+
+export const hasUrl = (urls, url) => urls.some(u => compareUrls(u, url));
+
+const getTextContentFromAttr = (item, attrName) => {
+  const attr = item.querySelector(attrName);
+  return attr ? attr.textContent : null;
+};
+
+export const parseRss = (data) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data, 'text/xml');
 
@@ -9,17 +31,17 @@ export const parse = (data) => {
   if (channelDOM === null) return null;
 
   const channel = channelDOM && {
-    title: channelDOM.querySelector('title').textContent,
-    description: channelDOM.querySelector('description').textContent,
-    link: channelDOM.querySelector('link').textContent,
+    title: getTextContentFromAttr(channelDOM, 'title'),
+    description: getTextContentFromAttr(channelDOM, 'description'),
+    link: getTextContentFromAttr(channelDOM, 'link'),
   };
 
   const itemsDOM = doc.querySelectorAll('item');
   const items = itemsDOM && [...itemsDOM].map(item => ({
-    guid: item.querySelector('guid').textContent,
-    title: item.querySelector('title').textContent,
-    description: item.querySelector('description').textContent,
-    link: item.querySelector('link').textContent,
+    guid: getTextContentFromAttr(item, 'guid'),
+    title: getTextContentFromAttr(item, 'title'),
+    description: getTextContentFromAttr(item, 'description'),
+    link: getTextContentFromAttr(item, 'link'),
   }));
 
   return { channel, items };

@@ -2,30 +2,16 @@ import isURL from 'validator/lib/isURL';
 import axios from 'axios';
 import { watch } from 'melanke-watchjs';
 import _ from 'lodash';
-import { proxifyUrl, parse } from './helpers';
+import {
+  proxifyUrl, parseRss, hasUrl, normalizeUrl,
+} from './helpers';
 import buildItemLi from './components/buildItemLi';
 import buildChannelLi from './components/buildChannelLi';
-
-const updateRss = (url, state, interval) => axios
-  .get(proxifyUrl(url))
-  .then((res) => {
-    const parsed = parse(res.data);
-    if (res.status === 200 && parsed === null) throw new Error('notRss');
-    const { channel, items } = parsed;
-    const newItems = items.map(item => ({ ...item, channelUrl: url }));
-    const { channels, items: oldItems } = state;
-
-    const urls = channels.map(c => c.url);
-    if (!urls.includes(url)) channels.push({ ...channel, url });
-
-    state.items = _.unionBy(newItems, oldItems, ({ guid }) => guid);
-
-    setTimeout(() => updateRss(url, state, interval), interval);
-  });
 
 const handleInput = (state, t) => ({ target }) => {
   const { value } = target;
   const urls = state.channels.map(({ url }) => url);
+  state.input = value.trim().toLowerCase();
   state.errMsgs = [];
   switch (true) {
     case !value:
@@ -35,7 +21,7 @@ const handleInput = (state, t) => ({ target }) => {
       state.formState = 'invalid';
       state.errMsgs.push(t('invalidUrl'));
       break;
-    case urls.includes(value):
+    case hasUrl(urls, value):
       state.formState = 'invalid';
       state.errMsgs.push(t('urlAlreadyExist'));
       break;
@@ -44,7 +30,27 @@ const handleInput = (state, t) => ({ target }) => {
   }
 };
 
-const handleSubmit = (state, t) => (event) => {
+const runPeriodiсRssUpdate = (url, state, interval, t) => axios
+  .get(proxifyUrl(url))
+  .then(({ status, data }) => {
+    const parsed = parseRss(data);
+    if (status === 200 && parsed === null) {
+      throw new Error(t('notRss'));
+    }
+
+    const normalizedUrl = normalizeUrl(url);
+    const newChannel = { ...parsed.channel, url: normalizedUrl };
+    const newItems = parsed.items.map(item => ({ ...item, channelUrl: normalizedUrl }));
+    const { channels, items } = state;
+    const urls = channels.map(c => c.url);
+
+    if (!hasUrl(urls, url)) channels.push(newChannel);
+    state.items.unshift(..._.differenceBy(newItems, items, ({ guid }) => guid));
+
+    setTimeout(() => runPeriodiсRssUpdate(url, state, interval, t), interval);
+  });
+
+const handleSubmit = (state, period, t) => (event) => {
   event.preventDefault();
   const { target } = event;
 
@@ -53,16 +59,20 @@ const handleSubmit = (state, t) => (event) => {
 
   state.formState = 'sending';
 
-  updateRss(url, state, 5000, t)
-    .catch(err => state.errMsgs.push(t(err.message)))
+  runPeriodiсRssUpdate(url, state, period, t)
+    .catch((err) => {
+      state.errMsgs.push(err.message);
+      console.error(err);
+    })
     .finally(() => {
       state.formState = _.isEmpty(state.errMsgs) ? 'empty' : 'invalid';
     });
 };
 
 
-export default (t) => {
-  if (t) {
+export default (translate, period = 5000) => {
+  const t = translate || _.identity;
+  if (translate) {
     const i18nElements = document.querySelectorAll('*[data-i18n]');
     [...i18nElements].forEach((el) => {
       el.textContent = t(el.dataset.i18n);
@@ -74,15 +84,18 @@ export default (t) => {
     items: [],
     formState: 'empty',
     errMsgs: [],
+    input: '',
   };
 
   const rssForm = document.getElementById('rssForm');
   const rssInput = rssForm.querySelector('input');
   const formFeedBack = rssForm.querySelector('.feedback');
   const submitButton = rssForm.querySelector('*[type=submit]');
+  const channelsUl = document.getElementById('channels');
+  const itemsUl = document.getElementById('items');
 
   rssInput.addEventListener('input', handleInput(state, t));
-  rssForm.addEventListener('submit', handleSubmit(state, t));
+  rssForm.addEventListener('submit', handleSubmit(state, period, t));
 
   watch(state, 'formState', () => {
     const { formState, errMsgs } = state;
@@ -119,20 +132,22 @@ export default (t) => {
   });
 
   watch(state, 'channels', () => {
-    const ul = document.getElementById('channels');
-    ul.innerHTML = '';
+    channelsUl.innerHTML = '';
     state.channels.forEach(({ title, description, link }) => {
       const li = buildChannelLi(title, description, link, t);
-      ul.appendChild(li);
+      channelsUl.appendChild(li);
     });
   });
 
   watch(state, 'items', () => {
-    const ul = document.getElementById('items');
-    ul.innerHTML = '';
+    itemsUl.innerHTML = '';
     state.items.forEach(({ title, description, link }) => {
       const li = buildItemLi(title, description, link, t);
-      ul.appendChild(li);
+      itemsUl.appendChild(li);
     });
+  });
+
+  watch(state, 'input', () => {
+    rssInput.value = state.input;
   });
 };

@@ -11,5 +11,6 @@
     "loading": "Loading, please, wait...",
     "notRss": "Oops, seems that this URL has no valid RSS feed",
     "close": "Close",
-    "more": "More"
+    "more": "More",
+    "tryDemoUrl": "Try this url as demo"
 }

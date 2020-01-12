@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import app from './app';
 import en from '../locales/en/translation.json';
+import ru from '../locales/ru/translation.json';
 
 i18next
   .use(LanguageDetector)
@@ -11,8 +12,8 @@ i18next
     debug: process.env.NODE_ENV === 'development',
     resources: {
       en: { translation: en },
+      ru: { translation: ru },
     },
     fallbackLng: 'en',
-    lng: 'en',
   })
-  .then(t => app(t));
+  .then(t => app(t, 5000));

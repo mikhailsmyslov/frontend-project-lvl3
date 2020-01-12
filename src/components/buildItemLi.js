@@ -13,7 +13,7 @@ export default (title, description, link, t) => {
   btn.addEventListener('click', () => {
     const modal = document.getElementById('modal');
     modal.querySelector('.modal-title').textContent = title;
-    modal.querySelector('.modal-body').textContent = description;
+    modal.querySelector('.modal-body').innerHTML = description;
   });
   li.appendChild(a);
   li.appendChild(btn);
