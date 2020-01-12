@@ -8,5 +8,8 @@
     "formValid": "Looks good",
     "invalidUrl": "Enter a valid URL",
     "urlAlreadyExist": "URL already connected to agregator",
-    "loading": "Loading, please, wait..."
+    "loading": "Loading, please, wait...",
+    "notRss": "Oops, seems that this URL has no valid RSS feed",
+    "close": "Close",
+    "more": "More"
 }

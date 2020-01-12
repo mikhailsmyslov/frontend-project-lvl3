@@ -22,13 +22,28 @@
     </header>
     <main class='d-flex px-5'>
       <div class="flex-grow-1">
-        <h3 data-i18n="channels">Channels</h3>
+        <h3 class='p-3' data-i18n="channels">Channels</h3>
         <ul id="channels" class="list-group list-group-flush"></ul>
       </div>
       <div class="flex-grow-1">
-        <h3 data-i18n="news">News</h3>
-        <ul id="news" class="list-group list-group-flush"></ul>
+        <h3 class='p-3' data-i18n="news">News</h3>
+        <ul id="items" class="list-group list-group-flush"></ul>
       </div>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title text-secondary"></h6>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" data-i18n="close">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
   </body>
 </html>

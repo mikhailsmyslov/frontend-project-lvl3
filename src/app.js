@@ -2,86 +2,64 @@ import isURL from 'validator/lib/isURL';
 import axios from 'axios';
 import { watch } from 'melanke-watchjs';
 import _ from 'lodash';
+import { proxifyUrl, parse } from './helpers';
+import buildItemLi from './components/buildItemLi';
+import buildChannelLi from './components/buildChannelLi';
 
-const proxy = 'https://cors-anywhere.herokuapp.com';
+const updateRss = (url, state, interval) => axios
+  .get(proxifyUrl(url))
+  .then((res) => {
+    const parsed = parse(res.data);
+    if (res.status === 200 && parsed === null) throw new Error('notRss');
+    const { channel, items } = parsed;
+    const newItems = items.map(item => ({ ...item, channelUrl: url }));
+    const { channels, items: oldItems } = state;
 
-const state = {
-  channels: [],
-  news: [],
-  formState: 'empty',
-  errMsgs: [],
-};
+    const urls = channels.map(c => c.url);
+    if (!urls.includes(url)) channels.push({ ...channel, url });
 
-const handleInput = t => ({ target }) => {
+    state.items = _.unionBy(newItems, oldItems, ({ guid }) => guid);
+
+    setTimeout(() => updateRss(url, state, interval), interval);
+  });
+
+const handleInput = (state, t) => ({ target }) => {
   const { value } = target;
-  const { channels } = state;
-  const urls = channels.map(({ url }) => url);
-  if (!value) {
-    state.formState = 'empty';
-    state.errMsgs = [];
-    return;
-  }
-  if (value && !isURL(value)) {
-    state.formState = 'invalid';
-    state.errMsgs.push(t('invalidUrl'));
-    return;
-  }
-  if (urls.includes(value)) {
-    state.formState = 'invalid';
-    state.errMsgs.push(t('urlAlreadyExist'));
-    return;
-  }
-  state.formState = 'valid';
+  const urls = state.channels.map(({ url }) => url);
   state.errMsgs = [];
+  switch (true) {
+    case !value:
+      state.formState = 'empty';
+      break;
+    case value && !isURL(value):
+      state.formState = 'invalid';
+      state.errMsgs.push(t('invalidUrl'));
+      break;
+    case urls.includes(value):
+      state.formState = 'invalid';
+      state.errMsgs.push(t('urlAlreadyExist'));
+      break;
+    default:
+      state.formState = 'valid';
+  }
 };
 
-// eslint-disable-next-line no-unused-vars
-const handleSubmit = t => (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
+const handleSubmit = (state, t) => (event) => {
+  event.preventDefault();
+  const { target } = event;
+
+  const formData = new FormData(target);
   const url = formData.get('rssUrl');
+
   state.formState = 'sending';
-  axios.get(`${proxy}/${url}`)
-    .then((res) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(res.data, 'text/xml');
 
-      const channel = doc.querySelector('channel');
-      const title = channel.querySelector('title').textContent;
-      const description = channel.querySelector('description').textContent;
-      const link = channel.querySelector('link').textContent;
-
-      const channelId = _.uniqueId();
-
-      state.channels.push({
-        id: channelId,
-        title,
-        description,
-        link,
-        url,
-      });
-
-      const items = channel.querySelectorAll('item');
-      [...items].forEach((item) => {
-        const postTitle = item.querySelector('title').textContent;
-        const postDescription = item.querySelector('description').textContent;
-        const postLink = item.querySelector('link').textContent;
-        state.news.push({
-          id: _.uniqueId(),
-          channelId,
-          title: postTitle,
-          description: postDescription,
-          link: postLink,
-        });
-      });
-      e.target.reset();
-      state.formState = 'empty';
-    })
-    .catch((err) => {
-      state.formState = 'invalid';
-      state.errMsgs.push(err.message);
+  updateRss(url, state, 5000, t)
+    .catch(err => state.errMsgs.push(t(err.message)))
+    .finally(() => {
+      state.formState = _.isEmpty(state.errMsgs) ? 'empty' : 'invalid';
     });
 };
+
 
 export default (t) => {
   if (t) {
@@ -91,13 +69,20 @@ export default (t) => {
     });
   }
 
+  const state = {
+    channels: [],
+    items: [],
+    formState: 'empty',
+    errMsgs: [],
+  };
+
   const rssForm = document.getElementById('rssForm');
   const rssInput = rssForm.querySelector('input');
   const formFeedBack = rssForm.querySelector('.feedback');
   const submitButton = rssForm.querySelector('*[type=submit]');
 
-  rssInput.addEventListener('input', handleInput(t));
-  rssForm.addEventListener('submit', handleSubmit(t));
+  rssInput.addEventListener('input', handleInput(state, t));
+  rssForm.addEventListener('submit', handleSubmit(state, t));
 
   watch(state, 'formState', () => {
     const { formState, errMsgs } = state;
@@ -105,6 +90,7 @@ export default (t) => {
       case 'empty':
         rssInput.classList.remove('is-invalid', 'is-valid');
         formFeedBack.textContent = '';
+        rssForm.reset();
         rssInput.removeAttribute('disabled', '');
         submitButton.setAttribute('disabled', '');
         break;
@@ -135,33 +121,17 @@ export default (t) => {
   watch(state, 'channels', () => {
     const ul = document.getElementById('channels');
     ul.innerHTML = '';
-    state.channels.forEach((channel) => {
-      const li = document.createElement('li');
-      li.classList.add('list-group-item');
-      const a = document.createElement('a');
-      a.setAttribute('href', channel.link);
-      a.textContent = channel.title;
-      const p = document.createElement('p');
-      p.textContent = channel.description;
-      li.appendChild(a);
-      li.appendChild(p);
+    state.channels.forEach(({ title, description, link }) => {
+      const li = buildChannelLi(title, description, link, t);
       ul.appendChild(li);
     });
   });
 
-  watch(state, 'news', () => {
-    const ul = document.getElementById('news');
+  watch(state, 'items', () => {
+    const ul = document.getElementById('items');
     ul.innerHTML = '';
-    state.news.forEach((post) => {
-      const li = document.createElement('li');
-      li.classList.add('list-group-item');
-      const a = document.createElement('a');
-      a.setAttribute('href', post.link);
-      a.textContent = post.title;
-      const p = document.createElement('p');
-      p.textContent = post.description;
-      li.appendChild(a);
-      li.appendChild(p);
+    state.items.forEach(({ title, description, link }) => {
+      const li = buildItemLi(title, description, link, t);
       ul.appendChild(li);
     });
   });
