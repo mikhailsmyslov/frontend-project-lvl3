@@ -1,5 +1,6 @@
 import isURL from 'validator/lib/isURL';
 import axios from 'axios';
+import $ from 'jquery';
 import { watch } from 'melanke-watchjs';
 import _ from 'lodash';
 import {
@@ -149,5 +150,14 @@ export default (translate, period = 5000) => {
 
   watch(state, 'input', () => {
     rssInput.value = state.input.toString().trim().toLowerCase();
+  });
+
+  $('#modal').on('show.bs.modal', (event) => {
+    const button = $(event.relatedTarget);
+    const title = button.data('title');
+    const body = button.data('body');
+    const modal = $(event.target);
+    modal.find('.modal-title').text(title);
+    modal.find('.modal-body').html(body);
   });
 };
