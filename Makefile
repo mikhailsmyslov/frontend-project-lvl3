@@ -21,7 +21,7 @@ test-coverage:
 	npm test -- --coverage
 
 lint:
-	npx eslint .
+	npx eslint --fix .
 
 publish:
 	npm publish

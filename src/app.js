@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import isURL from 'validator/lib/isURL';
 import axios from 'axios';
 import $ from 'jquery';
@@ -9,7 +10,7 @@ import {
 import buildItemLi from './components/buildItemLi';
 import buildChannelLi from './components/buildChannelLi';
 
-const handleInput = (state, t) => ({ target }) => {
+const handleInput = (state) => ({ target }) => {
   const { value } = target;
   const urls = state.channels.map(({ url }) => url);
   state.input = value;
@@ -20,38 +21,38 @@ const handleInput = (state, t) => ({ target }) => {
       break;
     case value && !isURL(value):
       state.formState = 'invalid';
-      state.errMsgs.push(t('invalidUrl'));
+      state.errMsgs.push('invalidUrl');
       break;
     case hasUrl(urls, value):
       state.formState = 'invalid';
-      state.errMsgs.push(t('urlAlreadyExist'));
+      state.errMsgs.push('urlAlreadyExist');
       break;
     default:
       state.formState = 'valid';
   }
 };
 
-const runPeriodiсRssUpdate = (url, state, interval, t) => axios
+const runPeriodiсRssUpdate = (url, state, interval) => axios
   .get(proxifyUrl(url))
   .then(({ status, data }) => {
     const parsed = parseRss(data);
     if (status === 200 && parsed === null) {
-      throw new Error(t('notRss'));
+      throw new Error('notRss');
     }
 
     const normalizedUrl = normalizeUrl(url);
     const newChannel = { ...parsed.channel, url: normalizedUrl };
-    const newItems = parsed.items.map(item => ({ ...item, channelUrl: normalizedUrl }));
+    const newItems = parsed.items.map((item) => ({ ...item, channelUrl: normalizedUrl }));
     const { channels, items } = state;
-    const urls = channels.map(c => c.url);
+    const urls = channels.map((c) => c.url);
 
     if (!hasUrl(urls, url)) channels.push(newChannel);
     state.items.unshift(..._.differenceBy(newItems, items, ({ guid }) => guid));
 
-    setTimeout(() => runPeriodiсRssUpdate(url, state, interval, t), interval);
+    setTimeout(() => runPeriodiсRssUpdate(url, state, interval), interval);
   });
 
-const handleSubmit = (state, period, t) => (event) => {
+const handleSubmit = (state, period) => (event) => {
   event.preventDefault();
   const { target } = event;
 
@@ -60,9 +61,22 @@ const handleSubmit = (state, period, t) => (event) => {
 
   state.formState = 'sending';
 
-  runPeriodiсRssUpdate(url, state, period, t)
+  runPeriodiсRssUpdate(url, state, period)
     .catch((err) => {
-      state.errMsgs.push(err.message);
+      const { response, message } = err;
+      switch (true) {
+        case message === 'notRss':
+          state.errMsgs.push('notRss');
+          break;
+        case response && !!response.status:
+          state.errMsgs.push(response.status.toString().charAt(0).concat('xx'));
+          break;
+        case err.isAxiosError && !response:
+          state.errMsgs.push('network');
+          break;
+        default:
+          state.errMsgs.push('oops');
+      }
       console.error(err);
     })
     .finally(() => {
@@ -111,6 +125,8 @@ export default (translate, period = 5000) => {
       case 'valid':
         rssInput.classList.remove('is-invalid');
         rssInput.classList.add('is-valid');
+        formFeedBack.classList.remove('text-danger');
+        formFeedBack.classList.add('text-success');
         formFeedBack.textContent = t('formValid');
         rssInput.removeAttribute('disabled', '');
         submitButton.removeAttribute('disabled', '');
@@ -118,7 +134,11 @@ export default (translate, period = 5000) => {
       case 'invalid':
         rssInput.classList.remove('is-valid');
         rssInput.classList.add('is-invalid');
-        formFeedBack.textContent = errMsgs.join('. ');
+        formFeedBack.classList.remove('text-success');
+        formFeedBack.classList.add('text-danger');
+        formFeedBack.textContent = errMsgs
+          .map((key) => t([`errors.${key}`, 'errors.oops']))
+          .join('. ');
         rssInput.removeAttribute('disabled', '');
         submitButton.setAttribute('disabled', '');
         break;
@@ -128,7 +148,7 @@ export default (translate, period = 5000) => {
         submitButton.setAttribute('disabled', '');
         break;
       default:
-        break;
+        throw new Error(`ERROR: No such state: "${formState}" for submitting form!`);
     }
   });
 

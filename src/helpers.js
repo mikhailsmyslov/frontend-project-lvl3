@@ -1,6 +1,6 @@
 import * as _normalizeUrl from 'normalize-url';
 
-export const normalizeUrl = url => _normalizeUrl(url, {
+export const normalizeUrl = (url) => _normalizeUrl(url, {
   defaultProtocol: 'http:',
   stripProtocol: true,
   stripWWW: true,
@@ -16,7 +16,7 @@ export const proxifyUrl = (url) => {
 
 export const compareUrls = (u1, u2) => normalizeUrl(u1) === normalizeUrl(u2);
 
-export const hasUrl = (urls, url) => urls.some(u => compareUrls(u, url));
+export const hasUrl = (urls, url) => urls.some((u) => compareUrls(u, url));
 
 const getTextContentFromAttr = (item, attrName) => {
   const attr = item.querySelector(attrName);
@@ -37,7 +37,7 @@ export const parseRss = (data) => {
   };
 
   const itemsDOM = doc.querySelectorAll('item');
-  const items = itemsDOM && [...itemsDOM].map(item => ({
+  const items = itemsDOM && [...itemsDOM].map((item) => ({
     guid: getTextContentFromAttr(item, 'guid'),
     title: getTextContentFromAttr(item, 'title'),
     description: getTextContentFromAttr(item, 'description'),

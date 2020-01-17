@@ -6,11 +6,17 @@
     "appDescription": "Simple RSS loader written within frontend education course at",
     "rssInputLabel": "Paste RSS url",
     "formValid": "Looks good",
-    "invalidUrl": "Enter a valid URL",
-    "urlAlreadyExist": "URL already connected to agregator",
     "loading": "Loading, please, wait...",
-    "notRss": "Oops, seems that this URL has no valid RSS feed",
     "close": "Close",
     "more": "More",
-    "tryDemoUrl": "Try this url as demo"
+    "tryDemoUrl": "Try this url as demo",
+    "errors": {
+        "invalidUrl": "Enter a valid URL",
+        "urlAlreadyExist": "URL already connected to agregator",
+        "notRss": "Oops, seems that this URL has no valid RSS feed",
+        "network": "Looks like network problem",
+        "oops": "Oops, something went wrong, please, send a message to support",
+        "4xx": "Requested resourse is not available or not exist",
+        "5xx": "Requested resourse responded with error"
+    }
 }

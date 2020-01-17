@@ -16,4 +16,4 @@ i18next
     },
     fallbackLng: 'en',
   })
-  .then(t => app(t, 5000));
+  .then((t) => app(t, 5000));
