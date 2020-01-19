@@ -85,7 +85,3 @@ test('App', async () => {
   await waitForDomChange({ container: items });
   expect(getTree()).toMatchSnapshot();
 });
-
-test('Should have immutable state', async () => {
-  expect(getTree()).toMatchSnapshot();
-});

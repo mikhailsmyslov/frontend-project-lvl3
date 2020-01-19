@@ -72,16 +72,6 @@ exports[`Should handle 5xx errors 1`] = `
 <ul id=\\"items\\"></ul>"
 `;
 
-exports[`Should have immutable state 1`] = `
-"<form id=\\"rssForm\\">
-    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\">
-    <button type=\\"submit\\" disabled=\\"\\">Add</button>
-    <div class=\\"feedback\\"></div>
-</form>
-<ul id=\\"channels\\"></ul>
-<ul id=\\"items\\"></ul>"
-`;
-
 exports[`Should validate URL's 1`] = `
 "<form id=\\"rssForm\\">
     <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"invalidUrl\\" class=\\"is-invalid\\">
