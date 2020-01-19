@@ -54,9 +54,8 @@ const runPeriodiсRssUpdate = (url, state, interval) => axios
 
 const handleSubmit = (state, period) => (event) => {
   event.preventDefault();
-  const { target } = event;
 
-  const formData = new FormData(target);
+  const formData = new FormData(event.target);
   const url = formData.get('rssUrl');
 
   state.formState = 'sending';
