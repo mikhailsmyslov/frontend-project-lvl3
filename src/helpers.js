@@ -1,8 +1,8 @@
-import * as _normalizeUrl from 'normalize-url';
+import _normalizeUrl from 'normalize-url';
 
 export const normalizeUrl = (url) => _normalizeUrl(url, {
   defaultProtocol: 'http:',
-  stripProtocol: true,
+  forceHttp: true,
   stripWWW: true,
   removeTrailingSlash: true,
   removeDirectoryIndex: true,

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App 1`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"http://test.com/rss\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback\\"></div>
+</form>
+<ul id=\\"channels\\">
+    <li class=\\"list-group-item\\"><a href=\\"http://example.com/\\">Lorem ipsum feed for an interval of 1 minutes</a>
+        <p>This is a constantly updating lorem ipsum feed</p>
+    </li>
+</ul>
+<ul id=\\"items\\">
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374780\\">Lorem ipsum 2020-01-18T19:13:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:13:00Z\\" data-body=\\"Eiusmod Lorem amet non incididunt.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374720\\">Lorem ipsum 2020-01-18T19:12:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:12:00Z\\" data-body=\\"Cupidatat consectetur cupidatat enim cupidatat ut ad sint duis officia.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374660\\">Lorem ipsum 2020-01-18T19:11:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:11:00Z\\" data-body=\\"Sit in laboris quis eiusmod in commodo do eiusmod cupidatat dolore consectetur.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374600\\">Lorem ipsum 2020-01-18T19:10:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:10:00Z\\" data-body=\\"Id ad est reprehenderit nisi officia consequat laboris cupidatat ut mollit id ipsum duis.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374540\\">Lorem ipsum 2020-01-18T19:09:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:09:00Z\\" data-body=\\"Ad anim in commodo aliqua minim consectetur irure qui.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374480\\">Lorem ipsum 2020-01-18T19:08:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:08:00Z\\" data-body=\\"Veniam sint do duis est ullamco eu voluptate magna ad aute.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374420\\">Lorem ipsum 2020-01-18T19:07:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:07:00Z\\" data-body=\\"Pariatur ad nulla consequat ea irure velit.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374360\\">Lorem ipsum 2020-01-18T19:06:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:06:00Z\\" data-body=\\"Amet sint in sit laborum duis labore qui cillum ad nostrud enim est duis.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374300\\">Lorem ipsum 2020-01-18T19:05:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:05:00Z\\" data-body=\\"Aute sint voluptate nisi excepteur laboris irure enim cillum aliquip esse id sunt consequat nulla.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374240\\">Lorem ipsum 2020-01-18T19:04:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:04:00Z\\" data-body=\\"Cupidatat ad nostrud dolore Lorem deserunt.\\">more</button></li>
+</ul>"
+`;
+
+exports[`App 2`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"http://test.com/rss\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback\\"></div>
+</form>
+<ul id=\\"channels\\">
+    <li class=\\"list-group-item\\"><a href=\\"http://example.com/\\">Lorem ipsum feed for an interval of 1 minutes</a>
+        <p>This is a constantly updating lorem ipsum feed</p>
+    </li>
+</ul>
+<ul id=\\"items\\">
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579375440\\">Lorem ipsum 2020-01-18T19:24:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:24:00Z\\" data-body=\\"Culpa nisi ea magna ipsum voluptate cupidatat et reprehenderit in labore enim dolore dolore.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579375380\\">Lorem ipsum 2020-01-18T19:23:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:23:00Z\\" data-body=\\"Proident dolore tempor proident aute excepteur id consectetur.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374780\\">Lorem ipsum 2020-01-18T19:13:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:13:00Z\\" data-body=\\"Eiusmod Lorem amet non incididunt.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374720\\">Lorem ipsum 2020-01-18T19:12:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:12:00Z\\" data-body=\\"Cupidatat consectetur cupidatat enim cupidatat ut ad sint duis officia.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374660\\">Lorem ipsum 2020-01-18T19:11:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:11:00Z\\" data-body=\\"Sit in laboris quis eiusmod in commodo do eiusmod cupidatat dolore consectetur.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374600\\">Lorem ipsum 2020-01-18T19:10:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:10:00Z\\" data-body=\\"Id ad est reprehenderit nisi officia consequat laboris cupidatat ut mollit id ipsum duis.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374540\\">Lorem ipsum 2020-01-18T19:09:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:09:00Z\\" data-body=\\"Ad anim in commodo aliqua minim consectetur irure qui.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374480\\">Lorem ipsum 2020-01-18T19:08:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:08:00Z\\" data-body=\\"Veniam sint do duis est ullamco eu voluptate magna ad aute.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374420\\">Lorem ipsum 2020-01-18T19:07:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:07:00Z\\" data-body=\\"Pariatur ad nulla consequat ea irure velit.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374360\\">Lorem ipsum 2020-01-18T19:06:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:06:00Z\\" data-body=\\"Amet sint in sit laborum duis labore qui cillum ad nostrud enim est duis.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374300\\">Lorem ipsum 2020-01-18T19:05:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:05:00Z\\" data-body=\\"Aute sint voluptate nisi excepteur laboris irure enim cillum aliquip esse id sunt consequat nulla.\\">more</button></li>
+    <li class=\\"list-group-item d-flex justify-content-between\\"><a href=\\"http://example.com/test/1579374240\\">Lorem ipsum 2020-01-18T19:04:00Z</a><button class=\\"btn btn-primary btn-sm\\" data-toggle=\\"modal\\" data-target=\\"#modal\\" data-title=\\"Lorem ipsum 2020-01-18T19:04:00Z\\" data-body=\\"Cupidatat ad nostrud dolore Lorem deserunt.\\">more</button></li>
+</ul>"
+`;
+
+exports[`Should handle 4xx errors 1`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"http://test.com/404\\" class=\\"is-invalid\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback text-danger\\">errors.4xx,errors.oops</div>
+</form>
+<ul id=\\"channels\\"></ul>
+<ul id=\\"items\\"></ul>"
+`;
+
+exports[`Should handle 5xx errors 1`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"http://test.com/503\\" class=\\"is-invalid\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback text-danger\\">errors.5xx,errors.oops</div>
+</form>
+<ul id=\\"channels\\"></ul>
+<ul id=\\"items\\"></ul>"
+`;
+
+exports[`Should have immutable state 1`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback\\"></div>
+</form>
+<ul id=\\"channels\\"></ul>
+<ul id=\\"items\\"></ul>"
+`;
+
+exports[`Should validate URL's 1`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"invalidUrl\\" class=\\"is-invalid\\">
+    <button type=\\"submit\\" disabled=\\"\\">Add</button>
+    <div class=\\"feedback text-danger\\">errors.invalidUrl,errors.oops</div>
+</form>
+<ul id=\\"channels\\"></ul>
+<ul id=\\"items\\"></ul>"
+`;
+
+exports[`Should validate URL's 2`] = `
+"<form id=\\"rssForm\\">
+    <input type=\\"text\\" name=\\"rssUrl\\" required=\\"\\" value=\\"valid-url.com\\" class=\\"is-valid\\">
+    <button type=\\"submit\\">Add</button>
+    <div class=\\"feedback text-success\\">formValid</div>
+</form>
+<ul id=\\"channels\\"></ul>
+<ul id=\\"items\\"></ul>"
+`;
