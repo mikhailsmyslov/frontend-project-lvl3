@@ -34,7 +34,7 @@
     "i18next": "^19.0.3",
     "i18next-browser-languagedetector": "^4.0.1",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "melanke-watchjs": "^1.5.0",
     "mini-css-extract-plugin": "^0.9.0",
     "normalize-url": "^4.5.0",
